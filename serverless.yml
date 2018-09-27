@@ -1,0 +1,43 @@
+service: scheduled-house-bot
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  memorySize: 128
+  region: eu-west-2
+
+package:
+  exclude:
+    - '.idea/**'
+    - 'package.json'
+    - 'package-lock.json'
+
+functions:
+  rubbish-schedule:
+    handler: rubbish-schedule.run
+    events:
+#      - schedule: rate(1 minute)
+      - schedule: cron(0 22 ? * TUE *)
+  payments-schedule:
+    handler: payments-schedule.run
+    events:
+#      - schedule: rate(1 minute)
+      - schedule: cron(0 12 * * ? *)
+#  error-schedule:
+#    handler: error-schedule.run
+#    events:
+#      - schedule: rate(1 minute)
+  telegram-webhook:
+    handler: telegram-webhook.run
+    events:
+      - http:
+          path: telegram/webhook
+          method: post
+          cors: true
+  starling-webhook:
+    handler: starling-webhook.run
+    events:
+      - http:
+          path: starling/webhook
+          method: post
+          cors: true

@@ -1,0 +1,13 @@
+{
+  "name": "scheduled-house-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sooty1892",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.2.0"
+  }
+}
