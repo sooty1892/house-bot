@@ -15,18 +15,20 @@ module.exports.run = async (event, context) => {
 
     for (const payment of payments) {
       const paymentDate = new Date(payment.nextDate);
-
-      if (paymentDate.getFullYear() === tomorrow.getFullYear() && paymentDate.getMonth() === tomorrow.getMonth() && paymentDate.getDate() === tomorrow.getDate()) {
-        const contactInfo = await starling.hitPath(payment._links.receivingContactAccount.href);
-        console.log('ContactInfo:', contactInfo);
-        paymentsDue.push({
-          reference: payment.reference,
-          amount: payment.amount,
-          nextDate: payment.nextDate,
-          name: contactInfo.name
-        })
+      if (payment.cancelledAt) {
+        console.log('Filtering because cancelled for paymentOrderId=', payment.paymentOrderId)
+      } else {
+        if (paymentDate.getFullYear() === tomorrow.getFullYear() && paymentDate.getMonth() === tomorrow.getMonth() && paymentDate.getDate() === tomorrow.getDate()) {
+          const contactInfo = await starling.hitPath(payment._links.receivingContactAccount.href);
+          console.log('ContactInfo:', contactInfo);
+          paymentsDue.push({
+            reference: payment.reference,
+            amount: payment.amount,
+            nextDate: payment.nextDate,
+            name: contactInfo.name
+          })
+        }
       }
-
     }
 
     console.log('paymentsDue:', paymentsDue);

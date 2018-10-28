@@ -1,4 +1,4 @@
-service: scheduled-house-bot
+service: house-bot
 
 provider:
   name: aws
@@ -18,8 +18,8 @@ functions:
     events:
 #      - schedule: rate(1 minute)
       - schedule: cron(0 22 ? * TUE *)
-  payments-schedule:
-    handler: payments-schedule.run
+  upcoming-payments-schedule:
+    handler: upcoming-payments-schedule.run
     events:
 #      - schedule: rate(1 minute)
       - schedule: cron(0 12 * * ? *)

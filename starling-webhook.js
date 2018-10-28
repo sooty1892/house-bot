@@ -41,6 +41,21 @@ const handleWebHook = async (webHookBody) => {
         `Reference: ${webHookBody.content.reference}`,
         `Balance: £${balance.effectiveBalance}`
       ]);
+    case 'TRANSACTION_INTEREST_PAYMENT':
+      balance = await starling.getBalance();
+      return telegram.sendMessageArray([
+        `*Interest In*`,
+        `Amount: £${webHookBody.content.amount}`,
+        `Balance: £${balance.effectiveBalance}`
+      ]);
+    case 'TRANSACTION_CARD':
+      balance = await starling.getBalance();
+      return telegram.sendMessageArray([
+        `*Card Transaction*`,
+        `Amount: £${webHookBody.content.amount}`,
+        `${webHookBody.content.amount < 0 ? 'To' : 'From'}: ${webHookBody.content.counterParty}`,
+        `Balance: £${balance.effectiveBalance}`
+      ]);
     default:
       console.log(`Web hook type '${webHookType}' not supported`);
   }

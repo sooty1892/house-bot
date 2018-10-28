@@ -7,7 +7,7 @@ const getBalance = () => {
 
 const getScheduledPayments = async () => {
   const response = await executeApiCall('Scheduled payments', 'api/v1/payments/scheduled');
-  return response._embedded.paymentOrders.filter(order => order.recurrenceRule);
+  return response._embedded.paymentOrders;
 };
 
 const hitPath = (path) => {
