@@ -1,4 +1,4 @@
-variable filename{
+variable filename {
     default = "artifact.zip"
 }
-variable function_name{}
+variable function_name {}
