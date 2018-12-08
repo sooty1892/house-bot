@@ -1,6 +1,7 @@
 module "telegram_webhook_lambda" {
   source = "./lambda_module/"
   function_name = "telegram-webhook"
+  lambda_role = "${aws_iam_role.lamda_role.arn}"
 }
 
 module "telegram_api_gateway_resource" {
@@ -12,4 +13,8 @@ module "telegram_api_gateway_resource" {
   environment = "${var.environment}"
   lambda_invoke_arn = "${module.telegram_webhook_lambda.lambda_invoke_arn}"
   lambda_arn = "${module.telegram_webhook_lambda.lambda_arn}"
+}
+
+output "telegram_webhook_invoke_url" {
+  value       = "${module.telegram_api_gateway_resource.invoke_url}"
 }

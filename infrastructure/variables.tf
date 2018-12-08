@@ -5,3 +5,5 @@ variable "region" {
 variable "environment" {
     default = "dev"
 }
+
+variable "alarm_email" {}

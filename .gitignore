@@ -1,6 +1,9 @@
 .serverless
 node_modules
-secrets.js
 .idea
 artifact.zip
 .terraform
+
+# private things
+secrets.js
+**/*.tfvars

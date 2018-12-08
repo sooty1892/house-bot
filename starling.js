@@ -1,5 +1,12 @@
 const fetch = require('node-fetch');
 const secrets = require('./secrets');
+const AWS = require('aws-sdk');
+
+AWS.config.update({region: process.env.AWS_REGION})
+AWS.config.apiVersions = {
+  dynamodb: '2012-08-10'
+}
+AWS.config.logger = console;
 
 const getBalance = () => {
   return executeApiCall('Balance', 'api/v1/accounts/balance');

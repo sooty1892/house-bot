@@ -29,6 +29,10 @@ resource "aws_api_gateway_deployment" "deployment" {
   stage_name = "${var.environment}"
 }
 
+output "invoke_url" {
+  value = "${aws_api_gateway_deployment.deployment.invoke_url}"
+}
+
 resource "aws_lambda_permission" "apigw_to_lambda_permission" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"

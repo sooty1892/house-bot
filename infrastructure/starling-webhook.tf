@@ -1,6 +1,7 @@
 module "starling_webhook_lambda" {
   source = "./lambda_module/"
-  function_name = "sterling-webhook"
+  function_name = "starling-webhook"
+  lambda_role = "${aws_iam_role.lamda_role.arn}"
 }
 
 resource "aws_dynamodb_table" "starling_webhook_notification_tracker" {
@@ -24,4 +25,8 @@ module "starling_api_gateway_resource" {
   environment = "${var.environment}"
   lambda_invoke_arn = "${module.starling_webhook_lambda.lambda_invoke_arn}"
   lambda_arn = "${module.starling_webhook_lambda.lambda_arn}"
+}
+
+output "starling_webhook_invoke_url" {
+  value       = "${module.starling_api_gateway_resource.invoke_url}"
 }
