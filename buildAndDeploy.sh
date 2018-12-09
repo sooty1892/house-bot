@@ -2,3 +2,8 @@
 
 # Zipping up everything and deploying the same artifacts to all lambdas. Not the most efficient but fine for what is needed
 zip -r artifact.zip node_modules *.js 
+
+cd infrastructure
+rm -rf .terraform
+terraform init
+terraform apply

@@ -1,3 +1,15 @@
+variable rest_api_id {}
+variable parent_id {}
+variable path {}
+variable region {}
+variable environment {}
+variable lambda_invoke_arn {}
+variable lambda_arn {}
+
+output "invoke_url" {
+  value = "${aws_api_gateway_deployment.deployment.invoke_url}"
+}
+
 resource "aws_api_gateway_resource" "api_resource" {
   rest_api_id = "${var.rest_api_id}"
   parent_id = "${var.parent_id}"
@@ -29,17 +41,10 @@ resource "aws_api_gateway_deployment" "deployment" {
   stage_name = "${var.environment}"
 }
 
-output "invoke_url" {
-  value = "${aws_api_gateway_deployment.deployment.invoke_url}"
-}
-
 resource "aws_lambda_permission" "apigw_to_lambda_permission" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = "${var.lambda_arn}"
   principal     = "apigateway.amazonaws.com"
-
-  # The /*/* portion grants access from any method on any resource
-  # within the API Gateway "REST API".
   source_arn = "${aws_api_gateway_deployment.deployment.execution_arn}/*/*"
 }

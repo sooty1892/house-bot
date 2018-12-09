@@ -1,3 +1,18 @@
+variable filename {
+    default = "artifact.zip"
+}
+variable function_name {}
+
+variable lambda_role {}
+
+output "lambda_arn" {
+  value       = "${aws_lambda_function.house_bot_lambda.arn}"
+}
+
+output "lambda_invoke_arn" {
+  value       = "${aws_lambda_function.house_bot_lambda.invoke_arn}"
+}
+
 resource "aws_lambda_function" "house_bot_lambda" {
   filename         = "../${var.filename}"
   function_name    = "${var.function_name}"

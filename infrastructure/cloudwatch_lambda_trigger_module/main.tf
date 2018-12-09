@@ -1,3 +1,11 @@
+variable trigger_name {}
+variable schedule {}
+variable lambda_arn {}
+variable lambda_name {}
+variable is_enabled {
+    default = "true"
+}
+
 resource "aws_cloudwatch_event_rule" "trigger" {
   name = "${var.trigger_name}"
   schedule_expression = "${var.schedule}"

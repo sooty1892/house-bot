@@ -16,17 +16,11 @@ functions:
   rubbish-schedule:
     handler: rubbish-schedule.run
     events:
-#      - schedule: rate(1 minute)
       - schedule: cron(0 22 ? * TUE *)
   upcoming-payments-schedule:
     handler: upcoming-payments-schedule.run
     events:
-#      - schedule: rate(1 minute)
       - schedule: cron(0 12 * * ? *)
-#  error-schedule:
-#    handler: error-schedule.run
-#    events:
-#      - schedule: rate(1 minute)
   telegram-webhook:
     handler: telegram-webhook.run
     events:
