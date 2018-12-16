@@ -3,4 +3,12 @@
 Bot to listen to Telegram & Starling Bank webhook to provide information to chat users.
 Also has scheduled tasks to post information to chat users.
 
-Setup to deploy to AWS using Serverless framework. -- depracated in favour of Terraform so DynamoDB, SNS, Cloudwatch alerts etc can be handle together
+Infrastructure is deployed on AWS using terraform which sets up:
+* Lambdas
+* Api Gateway
+* Cloudwatch event triggers
+* DynamoDB
+* Cloudwatch logging
+* Cloudwatch alarms
+* IAM roles & policies
+* SNS
