@@ -1,7 +1,7 @@
 module "dishes_schedule_lambda" {
   source = "./lambda_module/"
   function_name = "dishes-schedule"
-  lambda_role = "${aws_iam_role.lamda_cloudwatch_role.arn}"
+  lambda_role = "${aws_iam_role.lambda_cloudwatch_role.arn}"
 }
 
 module "dishes_schedule_trigger" {

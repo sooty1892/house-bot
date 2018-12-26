@@ -1,7 +1,7 @@
 module "council_tax_schedule_lambda" {
   source = "./lambda_module/"
   function_name = "council_tax_schedule"
-  lambda_role = "${aws_iam_role.lamda_cloudwatch_role.arn}"
+  lambda_role = "${aws_iam_role.lambda_cloudwatch_role.arn}"
 }
 
 module "council_tax_schedule_trigger" {

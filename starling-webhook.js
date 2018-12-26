@@ -10,7 +10,8 @@ module.exports.run = async (event) => {
     console.log("Event:\n", event);
     if (event.body) {
       const webHookBody = JSON.parse(event.body);
-      if (await webHookAlreadyHandled(webHookBody.webhookNotificationUid)) {
+      const isHandled = await webHookAlreadyHandled(webHookBody.webhookNotificationUid);
+      if (Object.keys(isHandled).length !== 0) {
         console.log('Ignoring request since webhook already handled');
       } else {
         await handleWebHook(webHookBody);

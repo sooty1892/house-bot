@@ -1,7 +1,7 @@
 module "starling_webhook_lambda" {
   source = "./lambda_module/"
   function_name = "starling-webhook"
-  lambda_role = "${aws_iam_role.lamda_cloudwatch_dynamodb_role.arn}"
+  lambda_role = "${aws_iam_role.lambda_cloudwatch_dynamodb_role.arn}"
 }
 
 resource "aws_dynamodb_table" "starling_webhook_notification_tracker" {
