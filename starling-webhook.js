@@ -1,12 +1,21 @@
+const AWS = require('aws-sdk');
 const telegram = require('./telegram');
 const starling = require('./starling');
+
+AWS.config.update({region: process.env.AWS_REGION});
+ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
 module.exports.run = async (event) => {
   try {
     console.log("Event:\n", event);
     if (event.body) {
       const webHookBody = JSON.parse(event.body);
-      await handleWebHook(webHookBody);
+      if (await webHookAlreadyHandled(webHookBody.body.webhookNotificationUid)) {
+        console.log('Ignoring request since webhook already handled');
+      } else {
+        await handleWebHook(webHookBody);
+        await markWebHookAsHandled(webHookBody.body.webhookNotificationUid, event);
+      }
     } else {
       console.log('No body in request');
     }
@@ -17,6 +26,27 @@ module.exports.run = async (event) => {
   return {
     statusCode: 200
   }
+};
+
+const webHookAlreadyHandled = async (uid) => {
+  return ddb.getItem({
+    TableName: 'starling_webhook_notification_tracker',
+    Key: {
+      'NotificationId': {
+        S: uid
+      }
+    }
+  }).promise();
+};
+
+const markWebHookAsHandled = async (uid, event) => {
+  return ddb.putItem({
+    TableName: 'starling_webhook_notification_tracker',
+    Item: {
+      'NotificationId' : {S: uid},
+      'Event' : {S: JSON.stringify(event)},
+    }
+  }).promise();
 };
 
 const handleWebHook = async (webHookBody) => {
