@@ -3,7 +3,7 @@ const telegram = require('./telegram');
 const starling = require('./starling');
 
 AWS.config.update({region: process.env.AWS_REGION});
-ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
+const ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
 module.exports.run = async (event) => {
   try {
@@ -25,7 +25,7 @@ module.exports.run = async (event) => {
   }
   return {
     statusCode: 200
-  }
+  };
 };
 
 const webHookAlreadyHandled = async (uid) => {
