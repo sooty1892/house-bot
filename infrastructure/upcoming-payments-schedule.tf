@@ -1,7 +1,7 @@
 module "upcoming_payments_schedule_lambda" {
   source = "./lambda_module/"
   function_name = "upcoming-payments-schedule"
-  lambda_role = "${aws_iam_role.lamda_role.arn}"
+  lambda_role = "${aws_iam_role.lamda_cloudwatch_role.arn}"
 }
 
 module "upcoming_payments_schedule_trigger" {
