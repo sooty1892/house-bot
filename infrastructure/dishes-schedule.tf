@@ -1,3 +1,4 @@
+/*
 module "dishes_schedule_lambda" {
   source = "./lambda_module/"
   function_name = "dishes-schedule"
@@ -11,3 +12,4 @@ module "dishes_schedule_trigger" {
   schedule = "cron(0 19 * * ? *)"
   lambda_name = "dishes-schedule"
 }
+*/
